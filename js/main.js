@@ -235,6 +235,13 @@
 		});
 	}
 
+
+	function playAudio() {
+		let audio = new Audio('../audio/music-1.mp3');
+		audio.play();
+	}
+
+
 	var isotope = function() {
 		var $container = $('.grid');
 
@@ -297,5 +304,6 @@
 		addGuest();
 		isotope();
 		contactForm();
+		playAudio();
 	});
 }());
