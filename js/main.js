@@ -304,6 +304,5 @@
 		addGuest();
 		isotope();
 		contactForm();
-		playAudio();
 	});
 }());
