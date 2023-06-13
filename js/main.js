@@ -1,6 +1,7 @@
 ;(function () {
 	'use strict';
 	var x = document.getElementById("myAudio");
+	var musicPlay = false;
 
 	$(window).on('load', function() {
 		$('.loader').delay(600).fadeOut('slow');
@@ -17,6 +18,7 @@
 				document.getElementById('navbar').classList.remove('fixed-top');
 			}
 		});
+		playAudio();
 	});
 
 	// Form
@@ -253,9 +255,23 @@
 	}
 
 	function playAudio() {
-		setTimeout(function(){
-		    disableMute();
-		}, 2000);
+		if (!musicPlay) {
+			setTimeout(function(){
+				musicPlay = true;
+			    disableMute();
+			}, 2000);
+		}
+	}
+
+	function interactionUser () {
+		const myBody = document.querySelector('body');
+		// myBody.addEventListener('mouseover', event => {
+		// 	event.preventDefault();
+		// 	event.stopPropagation();
+		// 	console.log("jdhaskjdhasjhdk")
+		// 	playAudio();
+		// });
+
 	}
 
 
@@ -321,6 +337,6 @@
 		addGuest();
 		isotope();
 		contactForm();
-		playAudio();
+		interactionUser();
 	});
 }());
