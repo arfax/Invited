@@ -18,7 +18,6 @@
 				document.getElementById('navbar').classList.remove('fixed-top');
 			}
 		});
-		playAudio();
 	});
 
 	// Form
@@ -265,12 +264,12 @@
 
 	function interactionUser () {
 		const myBody = document.querySelector('body');
-		// myBody.addEventListener('mouseover', event => {
-		// 	event.preventDefault();
-		// 	event.stopPropagation();
-		// 	console.log("jdhaskjdhasjhdk")
-		// 	playAudio();
-		// });
+		myBody.addEventListener('mouseover', event => {
+			event.preventDefault();
+			event.stopPropagation();
+			console.log("jdhaskjdhasjhdk")
+			playAudio();
+		});
 
 	}
 
