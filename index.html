@@ -36,6 +36,7 @@
     <body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true">
         <div class="loader"></div>
 
+
         <div class="main">
             <!-- Navigation -->
 
@@ -123,6 +124,17 @@
 
 
             <section id="header" class="cover" data-parallax="scroll" data-image-src="images/xv_anos.jpg">
+
+                <div hidden>
+                    <audio id="myAudio" controls autoplay muted>
+                      <source src="audio/music-1.mp3" type="audio/ogg">
+                      <source src="audio/music-1.mp3" type="audio/mpeg">
+                    </audio>
+                    <button id="butonEnable" onclick="enableMute()" type="button">Mute sound</button>
+                    <button onclick="disableMute()" type="button">Enable sound</button>
+                    <button onclick="checkMute()" type="button">Check muted status</button>
+                </div>
+
 
                 <div class="overlay"></div>
 
