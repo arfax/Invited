@@ -1,24 +1,33 @@
 ;(function () {
 	'use strict';
-	var x = document.getElementById("myAudio");
-	var musicPlay = false;
 
 	$(window).on('load', function() {
 		$('.loader').delay(600).fadeOut('slow');
 		setTimeout(function() {
 			$('.cover .display-tc').addClass('fade-in-up');
 		}, 800);
+
 	});
 
 	document.addEventListener("DOMContentLoaded", function(){
 		window.addEventListener('scroll', function() {
 			if (window.scrollY > 100) {
+
 				document.getElementById('navbar').classList.add('fixed-top');
 			} else {
 				document.getElementById('navbar').classList.remove('fixed-top');
 			}
 		});
 	});
+
+
+	document.addEventListener("DOMContentLoaded", function() {
+		console.info("--------------------------------DOMContentLoaded----------------------------");
+		var x = document.getElementById("audio"); 
+		console.info(x);
+		x.muted = true;
+	});
+
 
 	// Form
 	var contactForm = function() {
@@ -254,25 +263,10 @@
 	}
 
 	function playAudio() {
-		if (!musicPlay) {
-			setTimeout(function(){
-				musicPlay = true;
-			    disableMute();
-			}, 2000);
-		}
+		setTimeout(function(){
+		    disableMute();
+		}, 2000);
 	}
-
-	function interactionUser () {
-		const myBody = document.querySelector('body');
-		myBody.addEventListener('mouseover', event => {
-			event.preventDefault();
-			event.stopPropagation();
-			console.log("jdhaskjdhasjhdk")
-			playAudio();
-		});
-
-	}
-
 
 	var isotope = function() {
 		var $container = $('.grid');
@@ -328,6 +322,7 @@
 	}
 
 	$(function(){
+
 		contentWayPoint();
 		testimonialCarousel();
 		counter();
@@ -336,6 +331,5 @@
 		addGuest();
 		isotope();
 		contactForm();
-		interactionUser();
 	});
 }());

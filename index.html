@@ -43,6 +43,12 @@
             <nav id="navbar" class="navbar navbar-expand-md">
                 <div class="container">
                     <a class="navbar-brand" href="index.html">Mis XV años</a>
+                    <div hidden>
+                        <iframe src="audio/music-1.mp3" type="audio/mp3" allow="autoplay" id="audio" style="display:none"></iframe>
+                        <video autoplay muted loop playsinline preload="metadata">
+                          <source src="audio/music-1.mp3">
+                        </video>
+                    </div>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                         <i class="fa-solid fa-bars"></i>
@@ -124,17 +130,6 @@
 
 
             <section id="header" class="cover" data-parallax="scroll" data-image-src="images/xv_anos.jpg">
-
-                <div hidden>
-                    <audio id="myAudio" controls autoplay muted>
-                      <source src="audio/music-1.mp3" type="audio/ogg">
-                      <source src="audio/music-1.mp3" type="audio/mpeg">
-                    </audio>
-                    <button id="butonEnable" onclick="enableMute()" type="button">Mute sound</button>
-                    <button onclick="disableMute()" type="button">Enable sound</button>
-                    <button onclick="checkMute()" type="button">Check muted status</button>
-                </div>
-
 
                 <div class="overlay"></div>
 
