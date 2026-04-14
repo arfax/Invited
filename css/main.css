@@ -13579,3 +13579,13 @@ img {
   color: #000;
 }
 /*# sourceMappingURL=main.css.map */
+
+.events-accordion .panel-location-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--primary-color, #c9a84c);
+  margin: 10px 15px 2px;
+  padding: 0;
+}
