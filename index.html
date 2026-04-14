@@ -29,6 +29,7 @@
         <link rel="stylesheet" type="text/css" href="css/vendor/motion.min.css">
 
         <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/theme-rosa.css">
 
     </head>
 
@@ -156,7 +157,7 @@
 
                                             <br>
 
-                                            2023
+                                            2026
                                         </span>
                                     </div>
                                 </div>
@@ -338,7 +339,7 @@
                         </div>
 
                         <div class="col-12 col-md-6">
-                            <h3>Julio 29, 2023 Tláhuac, CDMX</h3>
+                            <h3>Julio 29, 2026 Tláhuac, CDMX</h3>
 
                             <div class="panel-group" id="accordion">
                                 <div class="panel panel-default">
@@ -349,6 +350,7 @@
                                     </div>
 
                                     <div id="collapse1" class="panel-collapse collapse show" data-bs-parent="#events">
+                                        <p class="panel-location-label">¿Dónde es la Misa?</p>
                                         <div class="panel-place">
                                             <i class="fa fa-map-marker" aria-hidden="true"></i>
 
@@ -369,6 +371,7 @@
                                     </div>
 
                                     <div id="collapse2" class="panel-collapse collapse" data-bs-parent="#events">
+                                        <p class="panel-location-label">¿Dónde es el Salón?</p>
                                         <div class="panel-place">
                                             <i class="fa fa-map-marker" aria-hidden="true"></i>
 
@@ -961,6 +964,125 @@
         <script src="js/libs/jquery.waypoints.min.js"></script>
 
         <script src="js/main.js"></script>
+
+        <!-- Botón flotante de registro -->
+        <button id="btn-registro-flotante" onclick="document.getElementById('modal-registro').style.display='flex'" aria-label="Registrarse al evento">
+            <i class="fa fa-heart"></i>
+            <span>¡Asistiré!</span>
+        </button>
+
+        <!-- Modal de registro -->
+        <div id="modal-registro" role="dialog" aria-modal="true" aria-labelledby="modal-registro-titulo">
+            <div class="modal-registro-box">
+                <button class="modal-registro-cerrar" onclick="cerrarModalRegistro()" aria-label="Cerrar">&times;</button>
+                <div class="modal-registro-header">
+                    <i class="fa fa-heart"></i>
+                    <h3 id="modal-registro-titulo">Confirma tu asistencia</h3>
+                    <p>XV Años de Joyce López González</p>
+                </div>
+                <form id="form-registro" onsubmit="enviarRegistro(event)">
+                    <div class="reg-field">
+                        <label for="reg-nombre">Nombre completo *</label>
+                        <input type="text" id="reg-nombre" placeholder="Tu nombre" required>
+                    </div>
+                    <div class="reg-field">
+                        <label for="reg-email">Correo electrónico *</label>
+                        <input type="email" id="reg-email" placeholder="tucorreo@ejemplo.com" required>
+                    </div>
+                    <div class="reg-field">
+                        <label for="reg-telefono">Teléfono</label>
+                        <input type="tel" id="reg-telefono" placeholder="10 dígitos">
+                    </div>
+                    <div class="reg-field">
+                        <label for="reg-asistentes">¿Cuántos asistirán?</label>
+                        <select id="reg-asistentes">
+                            <option value="1">Solo yo</option>
+                            <option value="2">2 personas</option>
+                            <option value="3">3 personas</option>
+                            <option value="4">4 personas</option>
+                            <option value="5">5 o más</option>
+                        </select>
+                    </div>
+                    <div class="reg-field reg-field-radio">
+                        <label>¿Confirmas tu asistencia?</label>
+                        <div class="reg-radio-group">
+                            <label><input type="radio" name="asiste" value="Sí" required> Sí, asistiré 🎉</label>
+                            <label><input type="radio" name="asiste" value="No"> No podré ir 😢</label>
+                        </div>
+                    </div>
+                    <div id="reg-mensaje" class="reg-mensaje" style="display:none"></div>
+                    <button type="submit" id="reg-btn-enviar" class="reg-btn-enviar">
+                        <i class="fa fa-paper-plane"></i> Enviar confirmación
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            // ⚠️ Reemplaza esta URL con la de tu Google Apps Script desplegado
+            const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxVtJPd1MnV4MCEfTlzJmhTikIeG9zx-pudQ-a74qyVAoS3PLQ7dDUXS42zdwa8JAwlog/exec";
+
+            function cerrarModalRegistro() {
+                document.getElementById('modal-registro').style.display = 'none';
+            }
+
+            // Cerrar al hacer clic fuera del modal
+            document.getElementById('modal-registro').addEventListener('click', function(e) {
+                if (e.target === this) cerrarModalRegistro();
+            });
+
+            async function enviarRegistro(e) {
+                e.preventDefault();
+                const btn = document.getElementById('reg-btn-enviar');
+                const msg = document.getElementById('reg-mensaje');
+                const asiste = document.querySelector('input[name="asiste"]:checked');
+
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Enviando...';
+
+                const datos = {
+                    nombre:     document.getElementById('reg-nombre').value,
+                    email:      document.getElementById('reg-email').value,
+                    telefono:   document.getElementById('reg-telefono').value,
+                    asistentes: document.getElementById('reg-asistentes').value,
+                    asiste:     asiste ? asiste.value : ''
+                };
+
+                try {
+                    const params = new URLSearchParams({
+                        nombre:     datos.nombre,
+                        email:      datos.email,
+                        telefono:   datos.telefono,
+                        asistentes: datos.asistentes,
+                        asiste:     datos.asiste
+                    });
+
+                    const res = await fetch(APPS_SCRIPT_URL + '?' + params.toString());
+                    const json = await res.json();
+
+                    msg.style.display = 'block';
+                    if (json.result === 'ok') {
+                        msg.className = 'reg-mensaje reg-ok';
+                        msg.innerHTML = '🎉 ¡Gracias ' + datos.nombre + '! Tu confirmación fue registrada.';
+                        document.getElementById('form-registro').reset();
+                        btn.innerHTML = '<i class="fa fa-check"></i> ¡Enviado!';
+                    } else if (json.result === 'duplicado') {
+                        msg.className = 'reg-mensaje reg-duplicado';
+                        msg.innerHTML = '⚠️ Este correo ya fue registrado anteriormente.';
+                        btn.disabled = false;
+                        btn.innerHTML = '<i class="fa fa-paper-plane"></i> Enviar confirmación';
+                    } else {
+                        throw new Error(json.message || 'Error');
+                    }
+                } catch(err) {
+                    msg.style.display = 'block';
+                    msg.className = 'reg-mensaje reg-error';
+                    msg.innerHTML = '❌ Hubo un error. Intenta de nuevo.';
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fa fa-paper-plane"></i> Enviar confirmación';
+                }
+            }
+        </script>
 
     </body>
 </html>
