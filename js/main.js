@@ -6,8 +6,12 @@
 		setTimeout(function() {
 			$('.cover .display-tc').addClass('fade-in-up');
 		}, 800);
-
 	});
+	
+	// Timeout de seguridad en caso de que alguna imagen o audio tarde en cargar
+	setTimeout(function() {
+		$('.loader').fadeOut('slow');
+	}, 2000);
 
 	document.addEventListener("DOMContentLoaded", function(){
 		window.addEventListener('scroll', function() {
@@ -217,7 +221,7 @@
 			var timeinterval = setInterval(updateClock, 1000);
 		}
 		// set your wedding date here
-		var deadline = 'July 29 2026 17:00:00 GMT+0300';
+		var deadline = 'July 04 2026 14:45:00 GMT-0600';
 		if (countdown){
 			initializeClock('timer', deadline);
 		}

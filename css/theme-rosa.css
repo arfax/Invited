@@ -352,3 +352,204 @@ h2, .h2 {
   opacity: 1 !important;
   visibility: visible !important;
 }
+
+/* ── Mini Álbum de fotos ── */
+.album-carousel {
+  position: relative;
+  max-width: 340px;
+  margin: 0 auto;
+  user-select: none;
+}
+
+/* Pila de cartas */
+.album-pila {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+}
+
+.album-carta {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  border-radius: 4px;
+  padding: 10px 10px 44px 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 12px 30px rgba(201,79,112,0.15);
+  transform-origin: left center;
+  transition: transform 0.55s cubic-bezier(.4,0,.2,1), opacity 0.4s ease;
+  will-change: transform;
+  overflow: hidden;
+}
+
+/* Cartas apiladas detrás con pequeño offset */
+.album-carta:nth-child(2) { transform: rotate(1.5deg)  translate(4px, -3px); }
+.album-carta:nth-child(3) { transform: rotate(-1deg)   translate(-3px, -5px); }
+.album-carta:nth-child(n+4) { opacity: 0; }
+
+/* La carta activa siempre encima */
+.album-carta.activa { z-index: 10; transform: rotate(0deg) translate(0,0); }
+
+/* Animación de salida — desliza a la izquierda */
+.album-carta.saliendo {
+  transform: translateX(-110%) rotate(-8deg) !important;
+  opacity: 0;
+  z-index: 11;
+}
+
+.album-carta img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 2px;
+}
+
+/* Portada especial */
+.album-portada {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #fde8ef 0%, #fce0ea 60%, #ffd6e4 100%);
+  height: 100%;
+  border-radius: 2px;
+  gap: 12px;
+}
+.album-portada h3 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  background: linear-gradient(135deg, var(--rosa-oscuro), var(--dorado));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+  text-align: center;
+  line-height: 1.3;
+}
+.album-portada .portada-emoji { font-size: 2.5rem; }
+.album-portada .portada-hint {
+  font-size: 12px;
+  color: var(--rosa-oscuro);
+  opacity: 0.7;
+  letter-spacing: 0.05em;
+}
+
+/* Esquinas del marco */
+.marco-tl, .marco-tr, .marco-bl, .marco-br {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  z-index: 2;
+  pointer-events: none;
+}
+.marco-tl { top: 14px;    left: 14px;   border-top: 2px solid var(--rosa-medio); border-left:  2px solid var(--rosa-medio); }
+.marco-tr { top: 14px;    right: 14px;  border-top: 2px solid var(--rosa-medio); border-right: 2px solid var(--rosa-medio); }
+.marco-bl { bottom: 48px; left: 14px;   border-bottom: 2px solid var(--rosa-medio); border-left:  2px solid var(--rosa-medio); }
+.marco-br { bottom: 48px; right: 14px;  border-bottom: 2px solid var(--rosa-medio); border-right: 2px solid var(--rosa-medio); }
+
+.album-btn { display: none; }
+
+/* 3 puntos */
+.album-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+.album-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ddd;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  padding: 0;
+}
+.album-dot.activo {
+  background: var(--rosa-fuerte);
+  transform: scale(1.2);
+  box-shadow: 0 0 6px rgba(232,114,143,0.5);
+}
+
+/* ── Frases en las fotos del álbum ── */
+.album-carta {
+  overflow: hidden;
+}
+.album-frase {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.1rem;
+  color: var(--rosa-oscuro);
+  padding: 0 12px;
+  line-height: 1.3;
+  pointer-events: none;
+}
+
+/* ── Efectos de entrada por sección ── */
+
+/* Estado inicial — oculto antes de animar */
+.efecto-typewriter,
+.efecto-fadescale,
+.efecto-slide-left,
+.efecto-blur-in,
+.efecto-shimmer {
+  opacity: 0;
+}
+
+/* Typewriter — para párrafos multilínea */
+.efecto-typewriter {
+  opacity: 0;
+}
+.efecto-typewriter.animar {
+  opacity: 1;
+  animation: typewriterFade 0.1s ease forwards;
+}
+/* Efecto letra por letra via JS para párrafos */
+.efecto-typewriter.animar.tw-activo {
+  opacity: 1;
+}
+@keyframes typewriterFade {
+  to { opacity: 1; }
+}
+
+/* Fade + scale */
+.efecto-fadescale.animar {
+  animation: fadescale 0.8s ease forwards;
+}
+@keyframes fadescale {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Slide desde izquierda */
+.efecto-slide-left.animar {
+  animation: slideLeft 0.8s ease forwards;
+}
+@keyframes slideLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Blur que se enfoca */
+.efecto-blur-in.animar {
+  animation: blurIn 1s ease forwards;
+}
+@keyframes blurIn {
+  from { opacity: 0; filter: blur(12px); }
+  to   { opacity: 1; filter: blur(0); }
+}
+
+/* Shimmer / brillo */
+.efecto-shimmer.animar {
+  animation: shimmerIn 1.2s ease forwards;
+}
+@keyframes shimmerIn {
+  0%   { opacity: 0; text-shadow: none; }
+  50%  { opacity: 1; text-shadow: 0 0 20px rgba(244,160,181,0.8), 0 0 40px rgba(212,168,83,0.5); }
+  100% { opacity: 1; text-shadow: none; }
+}
