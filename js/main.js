@@ -217,7 +217,7 @@
 			var timeinterval = setInterval(updateClock, 1000);
 		}
 		// set your wedding date here
-		var deadline = 'July 29 2026 17:00:00 GMT+0300';
+		var deadline = 'July 04 2026 14:45:00 GMT-0600';
 		if (countdown){
 			initializeClock('timer', deadline);
 		}
