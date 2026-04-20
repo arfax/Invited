@@ -6,8 +6,12 @@
 		setTimeout(function() {
 			$('.cover .display-tc').addClass('fade-in-up');
 		}, 800);
-
 	});
+	
+	// Timeout de seguridad en caso de que alguna imagen o audio tarde en cargar
+	setTimeout(function() {
+		$('.loader').fadeOut('slow');
+	}, 2000);
 
 	document.addEventListener("DOMContentLoaded", function(){
 		window.addEventListener('scroll', function() {
