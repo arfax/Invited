@@ -134,6 +134,18 @@
 			smartSpeed: 800,
 			autoHeight: true,
 		});
+
+		// Efecto fade+rise en cada transición
+		function activarSlideVisible() {
+			owl.find('.item').removeClass('testimonio-visible');
+			var idx = owl.find('.owl-item.active').index();
+			setTimeout(function() {
+				owl.find('.owl-item.active .item').addClass('testimonio-visible');
+			}, 80);
+		}
+		// Activar el primero al cargar
+		activarSlideVisible();
+		owl.on('translated.owl.carousel', activarSlideVisible);
 	};
 
 	// Counter
