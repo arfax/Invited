@@ -1271,16 +1271,7 @@
                     <label for="reg-telefono">Teléfono</label>
                     <input type="tel" id="reg-telefono" placeholder="10 dígitos">
                 </div>
-                <div class="reg-field">
-                    <label for="reg-asistentes">¿Cuántos asistirán?</label>
-                    <select id="reg-asistentes">
-                        <option value="1">Solo yo</option>
-                        <option value="2">2 personas</option>
-                        <option value="3">3 personas</option>
-                        <option value="4">4 personas</option>
-                        <option value="5">5 o más</option>
-                    </select>
-                </div>
+
                 <div class="reg-field reg-field-radio">
                     <label>¿Confirmas tu asistencia?</label>
                     <div class="reg-radio-group">
@@ -1322,7 +1313,7 @@
                 nombre: document.getElementById('reg-nombre').value,
                 email: document.getElementById('reg-email').value,
                 telefono: document.getElementById('reg-telefono').value,
-                asistentes: document.getElementById('reg-asistentes').value,
+                asistentes: '1',
                 asiste: asiste ? asiste.value : ''
             };
 
